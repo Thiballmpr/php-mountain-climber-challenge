@@ -22,9 +22,22 @@ class Bobby
      */
     public function giveMoney($price)
     {
-        /** @TODO */
+        if ($this->total < $price)
+            return false;
+        
+        $tmp = $price;
+        $i = 0;
+        while ($tmp > 0)
+        {
+            if (is_numeric($this->wallet[$i]))
+            {
+                $tmp -= $this->wallet[$i];
+                $this->wallet[$i] = 0;
+            }
+            ++$i;
+        }
 
-        return false;
+        return true;
     }
 
     /**
