@@ -45,7 +45,40 @@ class MaxiInteger
      */
     private function realSum($a, $b)
     {
-        /** @TODO */
+        $res = "";
+        $s1 = $this->createReverseValue($this->$a->getValue());
+        $s2 = $this->createReverseValue($this->$b->getValue());
+
+        $ret = 0;
+
+        $s1Len = strlen($s1);
+        $s2Len = strlen($s2);
+        $maxLen = $s1Len;
+
+        if ($s1Len > $s2Len)
+            $this->fillZero($s2, $s1Len);
+        elseif ($s1Len < $s2Len) {
+            $this->fillZero($s1, $s2Len);
+            $maxLen = $s2Len;
+        }
+            
+        for ($i=0; $i < $maxLen; ++$i) {
+            $new = intval($s1[$i]) + intval($s2[$i]) + $ret;
+            $ret = 0;
+            if ($new > 9)
+            {
+                $ret = 1;
+                $new = $new % 10;
+            }
+            $res .= strval($new);
+        }
+
+        if ($ret == 1)
+            $res .= '1';
+
+        $result = new MaxiInteger();
+        $result->setValue(strrev($res));
+        return $result;
     }
 
     private function setValue($value)
