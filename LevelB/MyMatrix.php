@@ -74,6 +74,37 @@ class MyMatrix
         return $res;
     }
 
+
+    public function fillColumn($i):void
+    {
+        for ($j = 0; $j < $this->jMax; ++$j)
+        {
+            $this->matrix[$i][$j] = '0';
+        }
+    }
+
+    public function fillRow($j):void
+    {
+        for ($i = 0; $i < $this->iMax; ++$i)
+        {
+            $this->matrix[$i][$j] = '0';
+        }
+    }
+
+    public function fillmatrix()
+    {
+        $res = array();
+        for ($i = 0; $i < $this->iMax; ++$i) {
+            for ($j = 0; $j < $this->jMax; ++$j) {
+                if ($this->matrix[$i][$j] === '0')
+                    $res[$i][$j] = '0';
+                else
+                    $res[$i][$j] = '1';
+            }
+        }
+        return $res;
+    }
+
     /**
      * This function replaces a column (i) and a line (j) with '0',
      * if the (i, j) cell equals to '0'
@@ -83,7 +114,15 @@ class MyMatrix
      */
     public function fillZero()
     {
-        /** @TODO */
+        $res = $this->fillmatrix();
+        for ($i = 0; $i < $this->iMax; ++$i) {
+            for ($j = 0; $j < $this->jMax; ++$j) {
+                if (($res[$i][$j]) === '0') {
+                    $this->fillColumn($i);
+                    $this->fillRow($j);
+                }
+            }
+        } 
 
         return $this;
     }
